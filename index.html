@@ -37,7 +37,13 @@
         </main>
         <main v-else class="checkout-page">
                 <h2>Checkout</h2>
-                <p>Thank you for your purchase!</p>
+                <div v-if="cartCount > 0">
+                    <p v-for="lesson in cart" v-text="lesson.subject + ' - $' + lesson.price"></p>
+                    <p v-text="'Total items: ' + cartCount"></p>
+                    <p v-text="'Total price: $' + cartTotal"></p>
+                    <p><button v-on:click="checkout">Checkout</button></p>
+                </div>
+                <p v-else>Thank you for your purchase!</p>
                 <button v-on:click="showCheckout">Continue Shopping</button>
         </main>
     </div>
@@ -144,14 +150,24 @@
             computed: {
                 cartCount: function() {
                     return this.cart.length;
+                },
+                cartTotal: function() {
+                    let total = 0;
+                    for (let i = 0; i < this.cart.length; i++) {
+                        total += this.cart[i].price;
+                    }
+                    return total;
                 }
             },
             methods: {
                 addToCart: function(lesson) {
                     if (this.canAddToCart(lesson)) {
-                        this.cart.push(lesson.id);
+                        this.cart.push(lesson);
                         lesson.Stock -= 1;
                     }
+                },
+                checkout: function() {
+                    this.cart = [];
                 },
                 canAddToCart: function(lesson) {
                     return lesson.Stock > 0;
