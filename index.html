@@ -17,16 +17,17 @@
                 Checkout
             </button>
             <p>Cart items: <span v-text="cartCount"></span></p>
-            <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p>
+            <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
         </header>
-        <main v-if="showProduct">
+        <main v-if="showLessons">
             <figure>
-                <img v-bind:src="product.image" v-bind:alt="product.title">
+                <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
             </figure>
-            <h2 v-text="product.title"></h2>
-            <p v-text="product.description"></p>
-            <p v-text="'Price: $' + product.price"></p>
-            <p v-text="'Stock: ' + product.availableInventory"></p>
+            <h2 v-text="lesson.subject"></h2>
+            <p v-text="lesson.description"></p>
+            <p v-text="'Location: ' + lesson.location"></p>
+            <p v-text="'Price: $' + lesson.price"></p>
+            <p v-text="'Stock: ' + lesson.Stock"></p>
             <button v-if="canAddToCart" v-on:click="addToCart">Add to Cart</button>
             <button v-else disabled>Add to Cart</button>
         </main>
@@ -41,34 +42,35 @@
             el: '#app', 
             data: {
                 sitename: 'Resource Material Classes', 
-                product: {
+                lesson: {
                     id: 1001,
-                    title: 'Funny Cat',
-                    description: 'A funny cat that will make you laugh!',
-                    price: 9.99,
-                    image: "",
-                    availableInventory: 5
+                    subject: 'Maths',
+                    location: 'Hendon',
+                    description: 'Algebra and geometry practice.',
+                    price: 100,
+                    image: 'Images/maths.png',
+                    Stock: 5
                 },
                 cart: [],
-                showProduct: true
+                showLessons: true
             },
             computed: {
                 cartCount: function() {
                     return this.cart.length;
                 },
                 canAddToCart: function() {
-                    return this.product.availableInventory > 0;
+                    return this.lesson.Stock > 0;
                 }
             },
             methods: {
                 addToCart: function() {
                     if (this.canAddToCart) {
-                        this.cart.push(this.product.id);
-                        this.product.availableInventory -= 1;
+                        this.cart.push(this.lesson.id);
+                        this.lesson.Stock -= 1;
                     }
                 },
                 showCheckout() {
-                    this.showProduct = this.showProduct ? false : true;
+                    this.showLessons = this.showLessons ? false : true;
                 }
             }
         });
