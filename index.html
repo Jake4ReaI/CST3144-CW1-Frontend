@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resource Material Classes</title>
+        <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <button v-on:click="showCheckout">
+                {{ cartCount }}
+                <span class="fa-solid fa-cart-shopping"></span>
+                Checkout
+            </button>
+            <p>Cart items: <span v-text="cartCount"></span></p>
+            <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p>
+        </header>
+        <main v-if="showProduct">
+            <figure>
+                <img v-bind:src="product.image" v-bind:alt="product.title">
+            </figure>
+            <h2 v-text="product.title"></h2>
+            <p v-text="product.description"></p>
+            <p v-text="'Price: $' + product.price"></p>
+            <p v-text="'Stock: ' + product.availableInventory"></p>
+            <button v-if="canAddToCart" v-on:click="addToCart">Add to Cart</button>
+            <button v-else disabled>Add to Cart</button>
+        </main>
+        <main v-else>
+                <h2>Checkout</h2>
+                <p>Thank you for your purchase!</p>
+                <button v-on:click="showCheckout">Continue Shopping</button>
+        </main>
+    </div>
+    <script type="text/javascript">
+        let webstore = new Vue({
+            el: '#app', 
+            data: {
+                sitename: 'Resource Material Classes', 
+                product: {
+                    id: 1001,
+                    title: 'Funny Cat',
+                    description: 'A funny cat that will make you laugh!',
+                    price: 9.99,
+                    image: "",
+                    availableInventory: 5
+                },
+                cart: [],
+                showProduct: true
+            },
+            computed: {
+                cartCount: function() {
+                    return this.cart.length;
+                },
+                canAddToCart: function() {
+                    return this.product.availableInventory > 0;
+                }
+            },
+            methods: {
+                addToCart: function() {
+                    if (this.canAddToCart) {
+                        this.cart.push(this.product.id);
+                        this.product.availableInventory -= 1;
+                    }
+                },
+                showCheckout() {
+                    this.showProduct = this.showProduct ? false : true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
