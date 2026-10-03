@@ -18,8 +18,8 @@
     <div id="app">
         <header>
             <h1 v-text="sitename"></h1>
-            <button v-on:click="showCheckout">
-                {{ cartCount }}
+            <button v-on:click="showCheckout" v-bind:disabled="cartCount == 0 ? true : false"> 
+            {{ cartCount }}
                 <span class="fa-solid fa-cart-shopping"></span>
                 Checkout
             </button>
