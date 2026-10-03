@@ -27,16 +27,18 @@
             <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
         </header>
         <main v-if="showLessons">
-            <figure>
-                <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
-            </figure>
-            <h2 v-text="lesson.subject"></h2>
-            <p v-text="lesson.description"></p>
-            <p v-text="'Location: ' + lesson.location"></p>
-            <p v-text="'Price: $' + lesson.price"></p>
-            <p v-text="'Stock: ' + lesson.Stock"></p>
-            <button v-if="canAddToCart" v-on:click="addToCart">Add to Cart</button>
-            <button v-else disabled>Add to Cart</button>
+            <div v-for="lesson in lessons" v-bind:key="lesson.id">
+                <figure>
+                    <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
+                </figure>
+                <h2 v-text="lesson.subject"></h2>
+                <p v-text="lesson.description"></p>
+                <p v-text="'Location: ' + lesson.location"></p>
+                <p v-text="'Price: $' + lesson.price"></p>
+                <p v-text="'Stock: ' + lesson.Stock"></p>
+                <button v-if="canAddToCart(lesson)" v-on:click="addToCart(lesson)">Add to Cart</button>
+                <button v-else disabled>Add to Cart</button>
+            </div>
         </main>
         <main v-else>
                 <h2>Checkout</h2>
@@ -49,32 +51,34 @@
             el: '#app', 
             data: {
                 sitename: 'Resource Material Classes', 
-                lesson: {
-                    id: 1001,
-                    subject: 'Maths',
-                    location: 'Hendon',
-                    description: 'Algebra and geometry practice.',
-                    price: 100,
-                    image: 'Images/TemplateHolder.jpeg',
-                    Stock: 5
-                },
+                lessons: [
+                    {
+                        id: 1,
+                        subject: 'Maths',
+                        location: 'Hendon',
+                        description: 'Algebra and geometry practice.',
+                        price: 100,
+                        image: 'Images/TemplateHolder.jpeg',
+                        Stock: 5
+                    }
+                ],
                 cart: [],
                 showLessons: true
             },
             computed: {
                 cartCount: function() {
                     return this.cart.length;
-                },
-                canAddToCart: function() {
-                    return this.lesson.Stock > 0;
                 }
             },
             methods: {
-                addToCart: function() {
-                    if (this.canAddToCart) {
-                        this.cart.push(this.lesson.id);
-                        this.lesson.Stock -= 1;
+                addToCart: function(lesson) {
+                    if (this.canAddToCart(lesson)) {
+                        this.cart.push(lesson.id);
+                        lesson.Stock -= 1;
                     }
+                },
+                canAddToCart: function(lesson) {
+                    return lesson.Stock > 0;
                 },
                 showCheckout() {
                     this.showLessons = this.showLessons ? false : true;
