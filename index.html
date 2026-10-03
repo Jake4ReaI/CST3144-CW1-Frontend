@@ -6,6 +6,7 @@
         <title>Resource Material Classes</title>
         <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
         <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,15 +27,15 @@
                     <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
                 </figure>
                 <h2 v-text="lesson.subject"></h2>
-                <p v-text="lesson.description"></p>
-                <p v-text="'Location: ' + lesson.location"></p>
-                <p v-text="'Price: $' + lesson.price"></p>
-                <p v-text="'Stock: ' + lesson.Stock"></p>
+                <p class="lesson-description" v-text="lesson.description"></p>
+                <p class="lesson-location" v-text="'Location: ' + lesson.location"></p>
+                <p class="lesson-price" v-text="'Price: $' + lesson.price"></p>
+                <p class="lesson-stock" v-text="'Stock: ' + lesson.Stock"></p>
                 <button v-if="canAddToCart(lesson)" v-on:click="addToCart(lesson)">Add to Cart</button>
                 <button v-else disabled>Add to Cart</button>
             </div>
         </main>
-        <main v-else>
+        <main v-else class="checkout-page">
                 <h2>Checkout</h2>
                 <p>Thank you for your purchase!</p>
                 <button v-on:click="showCheckout">Continue Shopping</button>
