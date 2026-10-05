@@ -1,0 +1,6 @@
+# secrets and local settings
+.env
+.env.*
+
+# installed packages
+node_modules/
