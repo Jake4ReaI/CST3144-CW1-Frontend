@@ -36,7 +36,6 @@
             <label for="descending">Descending</label>
         </div>
         <main v-if="showLessons" class="lesson-list">
-            <!-- change lesson" to sortedLessons-->
             <div v-for="lesson in sortedLessons" v-bind:key="lesson.id" class="lesson-card">
                 <figure>
                     <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
@@ -159,7 +158,6 @@
                         Stock: 5
                     }
                 ],
-                // sorting comes here
                 sortBy: 'subject',
                 sortOrder: 'ascending',
                 cart: [],
@@ -183,6 +181,9 @@
                         if (a[attribute] < b[attribute]) return -1;
                         if (a[attribute] > b[attribute]) return 1;
                     });
+                    if (this.sortOrder === 'descending') {
+                        has_sorted.reverse();
+                    }
                     return has_sorted;
                 }
 
