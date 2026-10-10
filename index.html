@@ -16,7 +16,7 @@
             <button v-on:click="showCheckout" v-bind:disabled="cartCount == 0 ? true : false"> 
             {{ cartCount }}
                 <span class="fa-solid fa-cart-shopping"></span>
-                Checkout
+                Cart
             </button>
             <p>Cart items: <span v-text="cartCount"></span></p>
             <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
