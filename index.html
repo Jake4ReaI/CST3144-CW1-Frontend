@@ -53,7 +53,7 @@
                 <h2>Checkout</h2>
                 <div v-if="cartCount > 0">
                     <!-- <p v-for="lesson in cart" v-text="lesson.subject + ' - $' + lesson.price"></p> -->
-                    <p v-for = "lesson in cart">
+                    <p v-for = "(lesson,index) in cart">
                         {{ lesson.subject }} - ${{ lesson.price }}
                         <button v-on:click="removed_FromCart(lesson,index)">Remove</button>
                     </p>
