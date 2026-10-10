@@ -26,9 +26,14 @@
             <strong>Sort by:</strong>
             <select v-model="sortBy">
                 <option value="subject">Subject</option>
-                <!-- step 1a: location, price and Stock options go here -->
+                <option value="location">Location</option>
+                <option value="price">Price</option>
+                <option value="Stock">Stock</option>
             </select>
-            <!-- step 1b: ascending and descending radio buttons go here -->
+            <input type="radio" id="ascending" value="ascending" v-model="sortOrder">
+            <label for="ascending">Ascending</label>
+            <input type="radio" id="descending" value="descending" v-model="sortOrder">
+            <label for="descending">Descending</label>
         </div>
         <main v-if="showLessons" class="lesson-list">
             <!-- change lesson" to sortedLessons-->
@@ -156,7 +161,7 @@
                 ],
                 // sorting comes here
                 sortBy: 'subject',
-                // step 1b: sortOrder goes here
+                sortOrder: 'ascending',
                 cart: [],
                 showLessons: true
             },
@@ -178,7 +183,6 @@
                         if (a[attribute] < b[attribute]) return -1;
                         if (a[attribute] > b[attribute]) return 1;
                     });
-                    // step 1b: reverse the list here when the order is descending
                     return has_sorted;
                 }
 
