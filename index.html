@@ -22,6 +22,12 @@
             <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
         </header>
         <!-- start sort controls -->
+         <div class="sort-bar" v-if="showLessons">
+            <strong>Sort by:</strong>
+            <select v-model="sortBy">
+            <option value="subject">Subject</option>
+            </select>
+        </div>
         <main v-if="showLessons" class="lesson-list">
             <!-- change lesson" to sortedLessons-->
             <div v-for="lesson in lessons" v-bind:key="lesson.id" class="lesson-card">
