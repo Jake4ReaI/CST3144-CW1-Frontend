@@ -21,7 +21,9 @@
             <p>Cart items: <span v-text="cartCount"></span></p>
             <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
         </header>
+        <!-- start sort controls -->
         <main v-if="showLessons" class="lesson-list">
+            <!-- change lesson" to sortedLessons-->
             <div v-for="lesson in lessons" v-bind:key="lesson.id" class="lesson-card">
                 <figure>
                     <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
@@ -144,6 +146,7 @@
                         Stock: 5
                     }
                 ],
+                // sorting comes here
                 cart: [],
                 showLessons: true
             },
@@ -158,6 +161,7 @@
                     }
                     return total;
                 }
+                // sorted lesson here
             },
             methods: {
                 addToCart: function(lesson) {
