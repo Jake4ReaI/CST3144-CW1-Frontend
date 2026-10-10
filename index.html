@@ -26,7 +26,9 @@
             <strong>Sort by:</strong>
             <select v-model="sortBy">
                 <option value="subject">Subject</option>
+                <!-- step 1a: location, price and Stock options go here -->
             </select>
+            <!-- step 1b: ascending and descending radio buttons go here -->
         </div>
         <main v-if="showLessons" class="lesson-list">
             <!-- change lesson" to sortedLessons-->
@@ -154,6 +156,7 @@
                 ],
                 // sorting comes here
                 sortBy: 'subject',
+                // step 1b: sortOrder goes here
                 cart: [],
                 showLessons: true
             },
@@ -169,7 +172,14 @@
                     return total;
                 },
                 sortedLessons: function() {
-                    
+                    let attribute = this.sortBy;
+                    let has_sorted = this.lessons.slice();
+                    has_sorted.sort(function(a, b) {
+                        if (a[attribute] < b[attribute]) return -1;
+                        if (a[attribute] > b[attribute]) return 1;
+                    });
+                    // step 1b: reverse the list here when the order is descending
+                    return has_sorted;
                 }
 
             },
