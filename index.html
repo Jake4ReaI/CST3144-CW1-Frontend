@@ -53,10 +53,12 @@
                 <h2>Checkout</h2>
                 <div v-if="cartCount > 0">
                     <!-- <p v-for="lesson in cart" v-text="lesson.subject + ' - $' + lesson.price"></p> -->
-                    <p v-for = "(lesson,index) in cart">
-                        {{ lesson.subject }} - ${{ lesson.price }}
-                        <button v-on:click="removed_FromCart(lesson,index)">Remove</button>
-                    </p>
+                    <div v-for="lesson in lessons">
+                        <p v-if="countCart(lesson) > 0">
+                            {{ lesson.subject }} x{{ countCart(lesson) }} - ${{ lesson.price * countCart(lesson) }}
+                            <button v-on:click="removed_FromCart(lesson)">Remove</button>
+                        </p>
+                    </div>
                     <p v-text="'Total items: ' + cartCount"></p>
                     <p v-text="'Total price: $' + cartTotal"></p>
                     <!-- <p><button v-on:click="checkout">Checkout</button></p> -->
@@ -228,9 +230,10 @@
                         }
                     }
                 },
-                removed_FromCart: function(lesson, index) {
+                removed_FromCart: function(lesson) {
                     lesson.Stock += 1;
-                    this.cart.splice(index, 1);
+                    let position = this.cart.indexOf(lesson);
+                    this.cart.splice(position, 1);
                     if (this.cart.length === 0) {
                         this.showLessons = true;
                     }
