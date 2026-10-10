@@ -220,6 +220,14 @@
                         lesson.Stock -= 1;
                     }
                 },
+                countCart: function() {
+                    let count = 0;
+                    for (let i = 0; i < this.cart.length; i++) {
+                        if (this.cart[i] === lesson) {
+                            count+= 1;
+                        }
+                    }
+                },
                 removed_FromCart: function(lesson, index) {
                     lesson.Stock += 1;
                     this.cart.splice(index, 1);
