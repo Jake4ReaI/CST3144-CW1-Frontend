@@ -59,7 +59,19 @@
                     </p>
                     <p v-text="'Total items: ' + cartCount"></p>
                     <p v-text="'Total price: $' + cartTotal"></p>
-                    <p><button v-on:click="checkout">Checkout</button></p>
+                    <!-- <p><button v-on:click="checkout">Checkout</button></p> -->
+                    <p>
+                        <strong>Name:</strong>
+                        <input v-model.trim="orderInformation.Name"/>
+                    </p>
+                    <p>
+                        <strong>Phone:</strong>
+                        <input v-model.trim="orderInformation.Phone"/>
+                    </p>
+                    <p>
+                        <button v-if="canCheckOut" v-on:click="checkout">Checkout</button>
+                        <button v-else disabled>Checkout</button>
+                    </p>
                 </div>
                 <p v-else>Thank you for your purchase!</p>
                 <button v-on:click="showCheckout">Continue Shopping</button>
@@ -164,6 +176,10 @@
                 ],
                 sortBy: 'subject',
                 sortOrder: 'ascending',
+                orderInformation: {
+                    Name: '',
+                    Phone: '',
+                },
                 cart: [],
                 showLessons: true
             },
@@ -189,6 +205,11 @@
                         has_sorted.reverse();
                     }
                     return has_sorted;
+                },
+                canCheckOut: function() {
+                    let nameIsValid = /^[A-Za-z]+$/.test(this.orderInformation.Name);
+                    let phoneIsValid = /^[0-9]+$/.test(this.orderInformation.Phone);
+                    return nameIsValid && phoneIsValid;
                 }
 
             },
