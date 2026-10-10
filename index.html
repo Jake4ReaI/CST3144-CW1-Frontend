@@ -25,12 +25,12 @@
          <div class="sort-bar" v-if="showLessons">
             <strong>Sort by:</strong>
             <select v-model="sortBy">
-            <option value="subject">Subject</option>
+                <option value="subject">Subject</option>
             </select>
         </div>
         <main v-if="showLessons" class="lesson-list">
             <!-- change lesson" to sortedLessons-->
-            <div v-for="lesson in lessons" v-bind:key="lesson.id" class="lesson-card">
+            <div v-for="lesson in sortedLessons" v-bind:key="lesson.id" class="lesson-card">
                 <figure>
                     <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
                 </figure>
@@ -153,6 +153,7 @@
                     }
                 ],
                 // sorting comes here
+                sortBy: 'subject',
                 cart: [],
                 showLessons: true
             },
@@ -166,8 +167,11 @@
                         total += this.cart[i].price;
                     }
                     return total;
+                },
+                sortedLessons: function() {
+                    
                 }
-                // sorted lesson here
+
             },
             methods: {
                 addToCart: function(lesson) {
