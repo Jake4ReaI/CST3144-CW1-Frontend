@@ -14,10 +14,10 @@
     <div id="app">
         <header>
             <h1 v-text="sitename"></h1>
-            <button v-on:click="showCheckout" v-bind:disabled="cartCount == 0 ? true : false"> 
+            <button v-on:click="showCheckout" v-bind:disabled="cartCount == 0 && showLessons ? true : false"> 
             {{ cartCount }}
                 <span class="fa-solid fa-cart-shopping"></span>
-                Cart
+                {{showLessons ? 'Checkout' : 'Continue Shopping'}}
             </button>
             <p>Cart items: <span v-text="cartCount"></span></p>
             <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
@@ -102,8 +102,10 @@
                         <button v-else disabled>Checkout</button>
                     </p>
                 </div>
-                <p v-else>Thank you for your purchase!</p>
-                <div>
+                <!-- <p v-else>Thank you for your purchase!</p> -->
+                 <div v-else >
+                    <p>Thank you for your purchase!</p>
+                    <button v-on:click="showCheckout">Continue Shopping</button>
                     <h3>Order Details</h3>
                     <p>Name: {{ orderInformation.Name }}</p>
                     <p>Phone: {{ orderInformation.Phone }}</p>
@@ -113,7 +115,7 @@
                     <p>Ship as Gift: {{ orderInformation.Gift ? 'Yes' : 'No' }}</p>
                     <p>Shipping Method: {{ orderInformation.Method }}</p>
                 </div>
-                <button v-on:click="showCheckout">Continue Shopping</button>
+                <!-- <button v-on:click="showCheckout">Continue Shopping</button> -->
         </main>
     </div>
     <script type="text/javascript">
