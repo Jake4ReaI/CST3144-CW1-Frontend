@@ -20,10 +20,11 @@
                 {{showLessons ? 'Checkout' : 'Continue Shopping'}}
             </button>
             <p>Cart items: <span v-text="cartCount"></span></p>
-            <!-- <p v-if="cart.length">Cart contents: <span v-text="cart.join(', ')"></span></p> -->
         </header>
         <!-- start sort controls -->
          <div class="sort-bar" v-if="showLessons">
+            <strong>Search:</strong>
+            <input type="text" v-model="searchedUp" placeholder="Search lessons...">
             <strong>Sort by:</strong>
             <select v-model="sortBy">
                 <option value="subject">Subject</option>
@@ -38,9 +39,6 @@
         </div>
         <main v-if="showLessons" class="lesson-list">
             <div v-for="lesson in sortedLessons" v-bind:key="lesson.id" class="lesson-card">
-                <!-- <figure>
-                    <img v-bind:src="lesson.image" v-bind:alt="lesson.subject">
-                </figure> -->
                 <span v-bind:class="lesson.image" class="lesson-image"></span>
                 <h2 v-text="lesson.subject"></h2>
                 <p class="lesson-description" v-text="lesson.description"></p>
@@ -54,10 +52,8 @@
         <main v-else class="checkout-page">
                 <h2>Checkout</h2>
                 <div v-if="cartCount > 0">
-                    <!-- <p v-for="lesson in cart" v-text="lesson.subject + ' - $' + lesson.price"></p> -->
                     <div v-for="lesson in lessons">
                         <p v-if="countCart(lesson) > 0">
-                            <!-- <img v-bind:src="lesson.image" v-bind:alt="lesson.subject" class="cart-image"> -->
                             <span v-bind:class="lesson.image"></span>
                             {{ lesson.subject }} x{{ countCart(lesson) }} - ${{ lesson.price * countCart(lesson) }}
                             <button v-on:click="removed_FromCart(lesson)">Remove</button>
@@ -65,7 +61,6 @@
                     </div>
                     <p v-text="'Total items: ' + cartCount"></p>
                     <p v-text="'Total price: $' + cartTotal"></p>
-                    <!-- <p><button v-on:click="checkout">Checkout</button></p> -->
                     <p>
                         <strong>Name:</strong>
                         <input v-model.trim="orderInformation.Name"/>
@@ -104,7 +99,6 @@
                         <button v-else disabled>Checkout</button>
                     </p>
                 </div>
-                <!-- <p v-else>Thank you for your purchase!</p> -->
                  <div v-else >
                     <p>Thank you for your purchase!</p>
                     <button v-on:click="showCheckout">Continue Shopping</button>
@@ -117,7 +111,6 @@
                     <p>Ship as Gift: {{ orderInformation.Gift ? 'Yes' : 'No' }}</p>
                     <p>Shipping Method: {{ orderInformation.Method }}</p>
                 </div>
-                <!-- <button v-on:click="showCheckout">Continue Shopping</button> -->
         </main>
     </div>
     <script type="text/javascript">
@@ -128,6 +121,7 @@
                 lessons: products,
                 sortBy: 'subject',
                 sortOrder: 'ascending',
+                searchedUp: '',
                 orderInformation: {
                     Name: '',
                     Phone: '',
