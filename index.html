@@ -56,6 +56,7 @@
                     <!-- <p v-for="lesson in cart" v-text="lesson.subject + ' - $' + lesson.price"></p> -->
                     <div v-for="lesson in lessons">
                         <p v-if="countCart(lesson) > 0">
+                            <img v-bind:src="lesson.image" v-bind:alt="lesson.subject" class="cart-image">
                             {{ lesson.subject }} x{{ countCart(lesson) }} - ${{ lesson.price * countCart(lesson) }}
                             <button v-on:click="removed_FromCart(lesson)">Remove</button>
                         </p>
@@ -71,12 +72,47 @@
                         <strong>Phone:</strong>
                         <input v-model.trim="orderInformation.Phone"/>
                     </p>
+                     <p>
+                        <strong>Address:</strong>
+                        <input v-model.trim="orderInformation.Address"/>
+                     </p>
+                    <p>
+                        <strong>State:</strong>
+                        <select v-model="orderInformation.State">
+                            <option disabled value="">Select a state</option>
+                            <option v-for="state in states">{{state}}</option>
+                        </select>
+                    </p>
+                    <p>
+                        <strong>Zip:</strong>
+                        <input v-model.trim="orderInformation.Zip"/>
+                    </p>
+                    <p>
+                        <input type="checkbox" id="gift" v-model="orderInformation.Gift"/>
+                        <label for="gift">Ship as Gift?</label>
+                    </p>
+                    <p>
+                        <input type="radio" id="Home" value='Home' v-model='orderInformation.Method'>
+                        <label for='Home'>Home</label>
+                        <input type="radio" id="Business" value='Business' v-model='orderInformation.Method'>
+                        <label for='Business'>Business</label>
+                    </p>
                     <p>
                         <button v-if="canCheckOut" v-on:click="checkout">Checkout</button>
                         <button v-else disabled>Checkout</button>
                     </p>
                 </div>
                 <p v-else>Thank you for your purchase!</p>
+                <div>
+                    <h3>Order Details</h3>
+                    <p>Name: {{ orderInformation.Name }}</p>
+                    <p>Phone: {{ orderInformation.Phone }}</p>
+                    <p>Address: {{ orderInformation.Address }}</p>
+                    <p>State: {{ orderInformation.State }}</p>
+                    <p>Zip: {{ orderInformation.Zip }}</p>
+                    <p>Ship as Gift: {{ orderInformation.Gift ? 'Yes' : 'No' }}</p>
+                    <p>Shipping Method: {{ orderInformation.Method }}</p>
+                </div>
                 <button v-on:click="showCheckout">Continue Shopping</button>
         </main>
     </div>
@@ -86,103 +122,19 @@
             data: {
                 sitename: 'After School Classes', 
                 lessons: products,
-                //     {
-                //         id: 1,
-                //         subject: 'Maths',
-                //         location: 'Hendon',
-                //         description: 'Algebra and geometry practice.',
-                //         price: 100,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 2,
-                //         subject: 'get better english',
-                //         location: 'London',
-                //         description: 'improve ur english skills',
-                //         price: 80,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 3,
-                //         subject: 'get better at coding',
-                //         location: 'Brent Cross',
-                //         description: 'improves ur coding skills',
-                //         price: 90,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 4,
-                //         subject: 'get more better at coding',
-                //         location: 'Golders Green',
-                //         description: 'still not enough to get better at coding',
-                //         price: 95,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 5,
-                //         subject: 'History',
-                //         location: 'Mill Hill',
-                //         description: 'learn about past events of sometihng',
-                //         price: 70,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 6,
-                //         subject: 'acting classes',
-                //         location: 'Edgware',
-                //         description: 'aura farm ur way thru',
-                //         price: 85,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 7,
-                //         subject: 'LARP CLASSESES',
-                //         location: 'Hendon',
-                //         description: 'learn how to larp ur way thru liek me',
-                //         price: 110,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 8,
-                //         subject: 'benchmaxxing larp',
-                //         location: 'Colindale',
-                //         description: 'benchmaxxing nothing burger',
-                //         price: 60,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 9,
-                //         subject: 'aryans food store',
-                //         location: 'Finchley',
-                //         description: 'find his food here',
-                //         price: 75,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     },
-                //     {
-                //         id: 10,
-                //         subject: 'aryans extra large food store',
-                //         location: 'Wembley',
-                //         description: 'find his extra large foob here',
-                //         price: 120,
-                //         image: 'Images/TemplateHolder.jpeg',
-                //         Stock: 5
-                //     }
-                // ],
                 sortBy: 'subject',
                 sortOrder: 'ascending',
                 orderInformation: {
                     Name: '',
                     Phone: '',
+                    Address: '',
+                    State: '',
+                    Gift: false,
+                    Method: 'Home',
+                    Zip: '',
+
                 },
+                states: ["Alabama",'Alaska', 'Arizona', 'California', 'Nevada'],
                 cart: [],
                 showLessons: true
             },
