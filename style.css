@@ -69,7 +69,8 @@ main {
     gap: 20px;
 }
 
-.lesson-card {
+.lesson-card,
+.checkout-page > div > div p {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -135,23 +136,69 @@ main {
 
 .checkout-page {
     width: 80%;
-    max-width: 400px;
+    max-width: 800px;
     margin: 40px auto;
     padding: 25px;
-    text-align: center;
+    /* text-align: center; */
     background-color: white;
     border: 2px solid #1d2433;
     border-radius: 14px;
     box-shadow: 4px 4px 0 #1d2433;
 }
 
-/* .cart-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    vertical-align: middle;
-} */
-
 .lesson-image {
     font-size: 50px;
+}
+
+.checkout-page > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.checkout-page > div > div {
+    margin: 0 15px 15px 0;
+}
+
+.checkout-page > div > div:empty {
+    display: none;
+}
+
+.checkout-page > div > div p {
+    margin: 0;
+}
+
+.checkout-page > div > div span {
+    font-size: 50px;
+}
+
+.checkout-page > div > p {
+    width: 100%;
+    margin: 0 0 12px;
+}
+
+.checkout-page strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.checkout-page input:not([type]),
+.checkout-page select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    font-family: inherit;
+    border: 2px solid #1d2433;
+    border-radius: 8px;
+}
+
+.checkout-page h3 {
+    width: 100%;
+    margin: 20px 0 8px;
+}
+
+.checkout-page h3 ~ p {
+    margin: 0;
+    padding: 4px 12px;
+    background-color: #fff6d6;
+    border-left: 6px solid #ffd23f;
 }
