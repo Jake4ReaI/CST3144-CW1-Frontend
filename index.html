@@ -160,7 +160,7 @@
                     return has_sorted;
                 },
                 canCheckOut: function() {
-                    let nameIsValid = /^[A-Za-z]+$/.test(this.orderInformation.Name);
+                    let nameIsValid = /^[A-Za-z ]+$/.test(this.orderInformation.Name);
                     let phoneIsValid = /^[0-9]+$/.test(this.orderInformation.Phone);
                     return nameIsValid && phoneIsValid;
                 }

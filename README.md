@@ -1,0 +1,49 @@
+# CST3144-CW1-Frontend
+
+Coursework 1 Front End.
+
+- After School Classes lesson store
+- Vue.js 2
+- Links:
+  - GitHub repository: https://github.com/Jake4ReaI/CST3144-CW1-Frontend
+  - GitHub Pages: https://jake4reai.github.io/CST3144-CW1-Frontend/
+- Lesson list of 10 lessons, loaded from Products.js, with:
+  - Subject
+  - Description
+  - Location
+  - Price
+  - Available stock, starting at 5 per lesson
+  - Lesson-specific Font Awesome icon
+- Search box on the lesson page
+- Sort lessons by:
+  - Subject
+  - Location
+  - Price
+  - Stock
+- Sort order for every option:
+  - Ascending
+  - Descending
+- Add lessons to the cart
+- Add to Cart button stays visible and is disabled when no stock remains
+- Cart button:
+  - Shows the number of items in the cart
+  - Disabled if the cart is empty on the lesson page
+  - Switches between the lesson page and the checkout page
+- Checkout page showing:
+  - Lesson icon, subject, quantity and price for each lesson
+  - Total items
+  - Total price
+- Remove lessons from the cart, which returns the stock to the lesson
+- Return to the lesson page when the last lesson is removed
+- Checkout form containing:
+  - Name
+  - Phone
+  - Address
+  - State selection
+  - Zip
+  - Ship as gift checkbox
+  - Home or Business shipping method
+- Checkout button stays disabled until the details are valid:
+  - Name must contain letters and spaces only
+  - Phone must contain numbers only
+- Thank you message and order details shown after checkout
