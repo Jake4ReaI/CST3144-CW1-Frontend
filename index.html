@@ -31,6 +31,7 @@
                 <option value="location">Location</option>
                 <option value="price">Price</option>
                 <option value="Stock">Stock</option>
+                <option value="teacher">Teacher</option>
             </select>
             <input type="radio" id="ascending" value="ascending" v-model="sortOrder">
             <label for="ascending">Ascending</label>
@@ -173,8 +174,14 @@
                     let attribute = this.sortBy;
                     let has_sorted = this.lessons.slice();
                     has_sorted.sort(function(a, b) {
-                        if (a[attribute] < b[attribute]) return -1;
-                        if (a[attribute] > b[attribute]) return 1;
+                        let first = a[attribute];
+                        let second = b[attribute];
+                        if (attribute === 'teacher') {
+                            first = webstore.teacherName(a);
+                            second = webstore.teacherName(b);
+                        }
+                        if (first < second) return -1;
+                        if (first > second) return 1;
                     });
                     if (this.sortOrder === 'descending') {
                         has_sorted.reverse();
