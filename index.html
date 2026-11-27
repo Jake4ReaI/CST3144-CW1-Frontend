@@ -215,7 +215,34 @@
                         this.showLessons = true;
                     }
                 },
-                checkout: function() {
+                // checkout: function() {
+                //     this.cart = [];
+                // },
+                 checkout: function() {
+                    let lessonIDs = [];
+                    for (let i = 0; i < this.cart.length; i++) {
+                        lessonIDs.push(this.cart[i].id);
+                    }
+                    let newOrder = {
+                        name: this.orderInformation.Name,
+                        phone: this.orderInformation.Phone,
+                        lessonIDs: lessonIDs,
+                        spaces: this.cart.length
+                    };
+                    fetch("https://m01033570-cst3144-cw1-afterschoolwebstore.onrender.com/collection/orders", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(newOrder),
+                    })
+                    .then(response => response.json())
+                    .then(responseJSON => {
+                        console.log(responseJSON);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
                     this.cart = [];
                 },
                 canAddToCart: function(lesson) {
