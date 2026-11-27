@@ -24,7 +24,7 @@
         <!-- start sort controls -->
          <div class="sort-bar" v-if="showLessons">
             <strong>Search:</strong>
-            <input type="text" v-model.trim="searchedUp" placeholder="Search lessons...">
+            <input type="text" v-model.trim="searchedUp" v-on:input="searchLessons" placeholder="Search lessons...">
             <strong>Sort by:</strong>
             <select v-model="sortBy">
                 <option value="subject">Subject</option>
@@ -124,6 +124,7 @@
                 sortBy: 'subject',
                 sortOrder: 'ascending',
                 searchedUp: '',
+                foundIDs: [],
                 orderInformation: {
                     Name: '',
                     Phone: '',
@@ -146,6 +147,7 @@
                                 webstore.lessons = json;
                             });
                     })
+                    this.searchLessons();
             },
             computed: {
                 cartCount: function() {
@@ -171,18 +173,14 @@
                     return has_sorted;
                 },
                 searchedLessons: function() {
-                    let search = this.searchedUp.toLowerCase();
                     let results = [];
-                    for (let i=0; i < this.sortedLessons.length; i++){
+                    for (let i = 0; i < this.sortedLessons.length; i++) {
                         let lesson = this.sortedLessons[i];
-                        let text = lesson.subject + ' ' + lesson.location + ' ' + lesson.price + ' ' + lesson.Stock;
-                        if (text.toLowerCase().indexOf(search) !== -1) {
+                        if (this.foundIDs.indexOf(lesson.id) !== -1) {
                             results.push(lesson);
                         }
                     }
                     return results;
-
-                    
                 },
                 canCheckOut: function() {
                     let nameIsValid = /^[A-Za-z ]+$/.test(this.orderInformation.Name);
@@ -263,6 +261,19 @@
                         }
                     }
                     this.cart = [];
+                },
+                searchLessons: function() {
+                    fetch('https://m01033570-cst3144-cw1-afterschoolwebstore.onrender.com/search?q=' + this.searchedUp).then(
+                        function (response) {
+                            response.json().then(
+                                function (json) {
+                                    let ids = [];
+                                    for (let i = 0; i < json.length; i++) {
+                                        ids.push(json[i].id);
+                                    }
+                                    webstore.foundIDs = ids;
+                                });
+                        })
                 },
                 canAddToCart: function(lesson) {
                     return lesson.Stock > 0;
