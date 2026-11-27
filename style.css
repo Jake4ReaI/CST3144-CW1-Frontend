@@ -115,6 +115,11 @@ main {
     letter-spacing: 1px;
 }
 
+.lesson-teacher {
+    font-size: 13px;
+    font-style: italic;
+}
+
 .lesson-price {
     font-size: 18px;
     font-weight: bold;

@@ -44,6 +44,7 @@
                 <h2 v-text="lesson.subject"></h2>
                 <p class="lesson-description" v-text="lesson.description"></p>
                 <p class="lesson-location" v-text="'Location: ' + lesson.location"></p>
+                <p class="lesson-teacher" v-text="'Teacher: ' + teacherName(lesson)"></p>
                 <p class="lesson-price" v-text="'Price: $' + lesson.price"></p>
                 <p class="lesson-stock" v-text="'Stock: ' + lesson.Stock"></p>
                 <button v-if="canAddToCart(lesson)" v-on:click="addToCart(lesson)">Add to Cart</button>
@@ -121,6 +122,7 @@
             data: {
                 sitename: 'After School Classes', 
                 lessons: [],
+                teachers: [],
                 sortBy: 'subject',
                 sortOrder: 'ascending',
                 searchedUp: '',
@@ -145,6 +147,13 @@
                         response.json().then(
                             function (json) {
                                 webstore.lessons = json;
+                            });
+                    })
+                    fetch('https://m01033570-cst3144-cw1-afterschoolwebstore.onrender.com/collection/teachers').then(
+                    function (response) {
+                        response.json().then(
+                            function (json) {
+                                webstore.teachers = json;
                             });
                     })
                     this.searchLessons();
@@ -204,6 +213,14 @@
                         }
                     }
                     return count;
+                },
+                teacherName: function(lesson) {
+                    for (let i = 0; i < this.teachers.length; i++) {
+                        if (this.teachers[i].lessonIDs.indexOf(lesson.id) !== -1) {
+                            return this.teachers[i].firstName + ' ' + this.teachers[i].lastName;
+                        }
+                    }
+                    return '';
                 },
                 removed_FromCart: function(lesson) {
                     lesson.Stock += 1;
