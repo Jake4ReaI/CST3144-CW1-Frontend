@@ -243,6 +243,25 @@
                     .catch((error) => {
                         console.log(error);
                     });
+                    for (let i = 0; i < this.lessons.length; i++) {
+                        let lesson = this.lessons[i];
+                        if (this.countCart(lesson) > 0) {
+                            fetch("https://m01033570-cst3144-cw1-afterschoolwebstore.onrender.com/collection/lessons/" + lesson._id, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ Stock: lesson.Stock }),
+                            })
+                            .then(response => response.json())
+                            .then(responseJSON => {
+                                console.log(responseJSON);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                        }
+                    }
                     this.cart = [];
                 },
                 canAddToCart: function(lesson) {
