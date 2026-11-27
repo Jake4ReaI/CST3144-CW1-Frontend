@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
         <link rel="stylesheet" href="style.css">
-        <script src="Products.js"></script>
+        <!-- <script src="Products.js"></script> -->
 </head>
 <body>
     <div id="app">
@@ -120,7 +120,7 @@
             el: '#app', 
             data: {
                 sitename: 'After School Classes', 
-                lessons: products,
+                lessons: [],
                 sortBy: 'subject',
                 sortOrder: 'ascending',
                 searchedUp: '',
@@ -137,6 +137,15 @@
                 states: ["Alabama",'Alaska', 'Arizona', 'California', 'Nevada'],
                 cart: [],
                 showLessons: true
+            },
+            created: function() {
+                fetch('https://m01033570-cst3144-cw1-afterschoolwebstore.onrender.com/collection/lessons').then(
+                    function (response) {
+                        response.json().then(
+                            function (json) {
+                                webstore.lessons = json;
+                            });
+                    })
             },
             computed: {
                 cartCount: function() {
