@@ -1,25 +1,28 @@
 # CST3144-CW1-Frontend
 
-Coursework 1 Front End.
+Coursework 1 Front End and Back End.
 
 - After School Classes lesson store
 - Vue.js 2
 - Links:
-  - GitHub repository: https://github.com/Jake4ReaI/CST3144-CW1-Frontend
+  - Front end GitHub repository: https://github.com/Jake4ReaI/CST3144-CW1-Frontend
   - GitHub Pages: https://jake4reai.github.io/CST3144-CW1-Frontend/
-- Lesson list of 10 lessons, loaded from Products.js, with:
+  - Back end GitHub repository: https://github.com/Jake4ReaI/CST3144-CW1-Backend
+  - Render route that returns all lessons: https://m01033570-cst3144-cw1-afterschoolwebstore.onrender.com/collection/lessons
+- Lesson list of 10 lessons, loaded from the back end with fetch (GET), with:
   - Subject
   - Description
   - Location
   - Price
   - Available stock, starting at 5 per lesson
   - Lesson-specific Font Awesome icon
-- Search box on the lesson page
+- Search box on the lesson page that matches subject, location, price or stock
 - Sort lessons by:
   - Subject
   - Location
   - Price
   - Stock
+  - Teachers
 - Sort order for every option:
   - Ascending
   - Descending
@@ -47,3 +50,24 @@ Coursework 1 Front End.
   - Name must contain letters and spaces only
   - Phone must contain numbers only
 - Thank you message and order details shown after checkout
+- After checkout:
+  - The order is saved to the back end with fetch (POST)
+  - The new stock of each lesson in the order is saved with fetch (PUT)
+
+## Back End
+
+- Node.js server using Express.js
+- MongoDB Atlas database (AfterschoolWebstore)
+- Collections:
+  - lessons
+  - orders: name, phone, lesson IDs and number of spaces
+  - teachers: first name, last name and the IDs of the lessons they teach
+- Logger middleware that prints every request to the server console
+- Static file middleware that returns lesson images, or an error message if the image does not exist
+- API routes:
+  - GET /collection/:collectionName returns every document in a collection
+  - GET /collection/:collectionName/:id returns one document
+  - POST /collection/:collectionName adds a new document, such as an order
+  - PUT /collection/:collectionName/:id updates any field of a document, such as a lesson's stock
+  - DELETE /collection/:collectionName/:id deletes a document
+- Hosted with Render, with the MongoDB connection string kept in the MONGODB_URI 
